@@ -1,7 +1,8 @@
 # YahooFinance::Scraper
 
 Scrape most active stocks, detailed stock quotes, historical prices, and
-options chain prices from Yahoo Finance with ruby.
+options chain prices from Yahoo Finance with ruby. Use it with Tor so Yahoo
+doesn't block you.
 
 See [http://github.com/huned/yahoo_finance_scraper](http://github.com/huned/yahoo_finance_scraper)
 
@@ -51,12 +52,14 @@ returns:
         :high => 15.73,
         :low => 15.5,
         :close => 15.63,
+        :adj_close => 15.63,
         :volume => 9799300,
         :date => 2012-05-01 00:00:00 -0700 },
       { :open => 15.58,
         :high => 15.77,
         :low => 15.54,
         :close => 15.67,
+        :adj_close => 15.67,
         :volume => 10841000,
         :date => 2012-05-02 00:00:00 -0700 },
       ... ]
