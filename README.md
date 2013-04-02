@@ -126,5 +126,13 @@ don't get cut off for making lots of requests. See
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
+  * run the test suite with `rspec spec/`:
+      ```
+      $ rspec spec/
+      .......
+
+      Finished in 0.08069 seconds
+      7 examples, 0 failures
+      ```
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
