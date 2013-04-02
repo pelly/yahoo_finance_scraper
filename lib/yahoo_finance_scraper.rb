@@ -28,7 +28,7 @@ module YahooFinance
         CSV.parse(get(url))[1..-1].map do |row|
           date, open, high, low, close, volume, adj_close = row
           { open: open.to_f, high: high.to_f, low: low.to_f,
-            close: close.to_f, volume: volume.to_i,
+            close: close.to_f, volume: volume.to_i, adj_close: adj_close.to_f,
             date: Date.strptime(date, '%Y-%m-%d').to_time }
         end.sort_by {|h| h[:date] }
       end
