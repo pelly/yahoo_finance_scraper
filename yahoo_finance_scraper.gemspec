@@ -17,6 +17,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'nokogiri'
 
-  gem.add_development_dependency 'debugger'
+  #gem.add_development_dependency 'debugger'
   gem.add_development_dependency 'rspec'
 end
