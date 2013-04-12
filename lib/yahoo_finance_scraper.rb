@@ -35,6 +35,12 @@ module YahooFinance
 
       def options_chain
         results = []
+
+        #
+        # TODO we want update this part to use yahoo finance's straddle view
+        # since they only show options with 0 open int + 0 volume on that page.
+        #
+
         url = options_chain_url
 
         doc = Nokogiri::HTML get(url)
