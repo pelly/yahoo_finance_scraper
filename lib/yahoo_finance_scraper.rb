@@ -66,7 +66,7 @@ module YahooFinance
         if response.code.to_i == 200
           response.body
         else
-          raise "Response code #{response.code}: #{response.body}"
+          raise "#{url} responded with #{response.code}: #{response.body}"
         end
       end
 
