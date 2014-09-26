@@ -2,11 +2,16 @@ require 'yahoo_finance_scraper'
 
 describe YahooFinance::Scraper do
   describe YahooFinance::Scraper::Company do
+    MockResponse = Struct.new(:code, :body)
+
     context 'company details' do
       before do
         @getter = mock :getter
-        @getter.stub(:get).with kind_of(String) do
-          File.read 'spec/fixtures/details.csv'
+        @getter.stub(:get_response).with(kind_of(URI)) do
+          MockResponse.new.tap do |response|
+            response.code = '200'
+            response.body = File.read('spec/fixtures/details.csv')
+          end
         end
         @scraper = YahooFinance::Scraper::Company.new 'yhoo', getter: @getter
         @details = @scraper.details
@@ -29,8 +34,11 @@ describe YahooFinance::Scraper do
     context 'historical prices' do
       before do
         @getter = mock :getter
-        @getter.stub(:get).with kind_of(String) do
-          File.read 'spec/fixtures/historical_daily.csv'
+        @getter.stub(:get_response).with(kind_of(URI)) do
+          MockResponse.new.tap do |response|
+            response.code = '200'
+            response.body = File.read('spec/fixtures/historical_daily.csv')
+          end
         end
         @scraper = YahooFinance::Scraper::Company.new 'yhoo', getter: @getter
       end
@@ -53,11 +61,15 @@ describe YahooFinance::Scraper do
     describe 'options chain' do
       before do
         @getter = mock :getter
-        @getter.stub(:get).with kind_of(String) do |url|
-          if url =~ /m=\d{4}-\d{2}$/
-            File.read 'spec/fixtures/options_chain_2.html'
-          else
-            File.read 'spec/fixtures/options_chain_1.html'
+        @getter.stub(:get_response).with(kind_of(URI)) do |url|
+          MockResponse.new.tap do |response|
+            response.code = '200'
+            response.body =
+              if url =~ /m=\d{4}-\d{2}$/
+                File.read('spec/fixtures/options_chain_2.html')
+              else
+                File.read('spec/fixtures/options_chain_1.html')
+              end
           end
         end
         @scraper = YahooFinance::Scraper::Company.new 'yhoo', getter: @getter
@@ -83,16 +95,20 @@ describe YahooFinance::Scraper do
     describe '#losers' do
       before do
         @getter = mock :getter
-        @getter.stub(:get).with kind_of(String) do |url|
-          case url
-          when /e=us/
-            File.read 'spec/fixtures/losers_1.html'
-          when /e=o/
-            File.read 'spec/fixtures/losers_2.html'
-          when /e=aq/
-            File.read 'spec/fixtures/losers_3.html'
-          when /e=nq/
-            File.read 'spec/fixtures/losers_4.html'
+        @getter.stub(:get_response).with(kind_of(URI)) do |url|
+          MockResponse.new.tap do |response|
+            response.code = '200'
+            response.body =
+              case url
+              when /e=us/
+                File.read 'spec/fixtures/losers_1.html'
+              when /e=o/
+                File.read 'spec/fixtures/losers_2.html'
+              when /e=aq/
+                File.read 'spec/fixtures/losers_3.html'
+              when /e=nq/
+                File.read 'spec/fixtures/losers_4.html'
+              end
           end
         end
         @scraper = YahooFinance::Scraper::Actives.new getter: @getter

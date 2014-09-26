@@ -139,7 +139,12 @@ module YahooFinance
       private
 
       def get url
-        (getter && getter.get(url)) || Net::HTTP.get(URI.parse(url))
+        response = (getter || Net::HTTP).get_response(URI.parse(url))
+        if response.code.to_i == 200
+          response.body
+        else
+          raise "#{url} responded with #{response.code}: #{response.body}"
+        end
       end
 
       def fetch resource
