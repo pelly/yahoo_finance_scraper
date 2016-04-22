@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = YahooFinance::Scraper::VERSION
 
   gem.add_dependency 'nokogiri'
+  gem.add_dependency 'stocker_utils'
 
   #gem.add_development_dependency 'byebug'
   gem.add_development_dependency 'rspec'
