@@ -79,7 +79,7 @@ module YahooFinance
 
       def historical_prices_url from, to
         'http://real-chart.finance.yahoo.com/table.csv?s=%s&a=%s&b=%s&c=%s&d=%s&e=%s&f=%s&g=d&ignore=.csv' % [
-          symbol, 
+          symbol,
           from.month - 1,
           from.day,
           from.year,
